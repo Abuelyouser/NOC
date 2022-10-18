@@ -134,7 +134,7 @@ This is a simple method that change or replace the value of any string but retur
 def change_me(text,word,value):
     text = text.split()
     if type(word) is str:
-        text = text.split()
+        value = value.split()
         word = word.split()
     for i in range(len(word)):
         no = text.index(word[i]) + 1
