@@ -1,6 +1,5 @@
 #final test: the inner vlan not worked yet.
 
-
 def get_my_value(text, mark):
     text = text.split()
     values = []
@@ -68,8 +67,8 @@ inner-vlan 2118 asd 3333 inbound traffic-table index 6 service-port 27 outbound 
   mac-address max-mac-count service-port 208 1 \
   return"
 
-ja = " INDEX VLAN VLAN     PORT F/ S/ P VPI  VCI   FLOW  FLOW       RX   TX   STATE " \
-     "ID   ATTR     TYPE                    TYPE  PARA" \
+ja = " INDEX VLAN VLAN     PORT F/ S/ P VPI  VCI   FLOW         RX   TX   STATE " \
+     "ID   ATTR     TYPE                      PARA " \
      "-----------------------------------------------------------------------------" \
      "0  402 stacking adl  0/12/0  0    35    -     -          6    6    down " \
      "1  402 stacking vdl  0/8 /0  0    35    -     -          6    6    down " \
@@ -81,11 +80,42 @@ ja = " INDEX VLAN VLAN     PORT F/ S/ P VPI  VCI   FLOW  FLOW       RX   TX   ST
      "7  402 stacking vdl  0/8 /1  0    35    -     -          6    6    up   " \
      "9  402 stacking vdl  0/8 /2  0    35    -     -          6    6    down " \
      "10  402 stacking adl  0/12/10 0    35    -     -         6    6    up" \
-     " 11"
+     " 11 11 11"
+
+mss = "name       age        class" \
+      " mohamed   15        A" \
+      " salma     14        B" \
+      " mona      19        CA"
+# name 3    6   9   12
+# age   4   7  10   13
+# class 5    8  11  14
+
+daa = {}
+
+mss = mss.split()
+for i in range(3):
+    celass = 5
+    daa[mss[2]] = mss[celass]
+
+    for x in range(3):
+        age = 4
+        daa[mss[1]] = mss[age]
+
+
+        for nn in range(3):
+            name = 3
+            daa[mss[0]] = mss[name]
+
+print(daa)
+
+saa = {'name': ['mohamed','salma','mona'], 'age': [15,14,19], 'class': ['A','B','CA']}
+#print(saa)
+
+
 
 # s = "service-port 545 vlan 1710 mohamed 22 vdsl mode atm  0/14/17 vpi 0 vci 35 single-service \
 #  tag-transform add-double inner-vlan 1181 inbound traffic-table index 6 outbound traffic-table index"
-s = "adsl"
+
 
 the_outer_vlan = "480"
 card_port = "0/4/14"
@@ -170,4 +200,4 @@ def check_customer_configuration(customer_config):
 # print(change_me(h_user_config['line_1'],['service-port','atm','vlan','inner-vlan'],[get_my_value(s,'service-port')[0],card_port,get_my_value(s,'vlan')[0],get_my_value(s,'inner-vlan')[0]]))
 
 
-print(check_customer_configuration(s))
+#print(check_customer_configuration(s))
