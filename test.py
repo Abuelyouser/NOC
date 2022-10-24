@@ -90,26 +90,16 @@ mss = "name       age        class" \
 # age   4   7  10   13
 # class 5    8  11  14
 
-daa = {}
-
-mss = mss.split()
-for i in range(3):
-    celass = 5
-    daa[mss[2]] = mss[celass]
-
-    for x in range(3):
-        age = 4
-        daa[mss[1]] = mss[age]
-
-
-        for nn in range(3):
-            name = 3
-            daa[mss[0]] = mss[name]
-
-print(daa)
-
-saa = {'name': ['mohamed','salma','mona'], 'age': [15,14,19], 'class': ['A','B','CA']}
-#print(saa)
+"""
+This is a method used to transform any table string with fixed numbers of rows and columns
+"""
+def transformer_dict(t,c,r):
+    the_dict = {}
+    t = t.split()
+    heads = t[0:c]
+    for i in range(c):
+        the_dict[heads[i]] = t[r+i::r]
+    return the_dict
 
 
 
