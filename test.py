@@ -191,3 +191,6 @@ def check_customer_configuration(customer_config):
 
 
 #print(check_customer_configuration(s))
+
+
+test
