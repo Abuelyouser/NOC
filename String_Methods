@@ -1,0 +1,40 @@
+String Manipulation Methods:
+
+1) len() Returns the length of a string.
+text = "Hello, World!"
+length = len(text)
+print(length)  # Output: 13
+
+
+2) strip(): Removes leading and trailing whitespace from a string.
+text = "   Hello, World!   "
+stripped_text = text.strip()
+print(stripped_text)  # Output: Hello, World!
+
+
+3) split(): Splits a string into a list of substrings based on a delimiter.
+text = "Hello, World!"
+words = text.split(", ")
+print(words)  # Output: ['Hello', 'World!']
+
+
+4) join(): Joins a list of strings into a single string using a specified delimiter.
+words = ['Hello', 'World!']
+text = ", ".join(words)
+print(text)  # Output: Hello, World!
+
+
+5) replace(): Replaces all occurrences of a substring in a string with another substring.
+text = "Hello, World!"
+new_text = text.replace("Hello", "Hi")
+print(new_text)  # Output: Hi, World!
+
+6) find(): Searches for the first occurrence of a substring in a string and returns its index. Returns -1 if the substring is not found.
+text = "Hello, World!"
+index = text.find("World")
+print(index)  # Output: 7
+
+7) count(): Counts the number of occurrences of a substring in a string.
+text = "Hello, World!"
+count = text.count("l")
+print(count)  # Output: 3
