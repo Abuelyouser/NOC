@@ -1,12 +1,15 @@
 import time
 import argparse
 import os
+import chime
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import random
+
+
 
 ## to do >> handle if the ticket time is 00:00 or 00:15
 ## to do >> add come back at done
@@ -40,18 +43,20 @@ def calculate_times(pool_time,pc_time= current_time):
     remaining_hours = remaining_time_minutes // 60
     remaining_time_minutes %= 60
     return f'{remaining_hours:02d}:{remaining_time_minutes:02d}'
+
 def add_times(time1, time2):
     hours1, minutes1 = map(int, time1.split(':'))
     hours2, minutes2 = map(int, time2.split(':'))
     total_minutes = (minutes1 + minutes2) % 60
     total_hours = hours1 + hours2 + (minutes1 + minutes2) // 60
     return '{:02d}:{:02d}'.format(total_hours, total_minutes)
+
 def arrange(adict):
-    #from smallest to biggest
+    #a dictionary from smallest to biggest
     return dict(sorted(adict.items(), key=lambda item: item[1]))
 """
 this funcion takes the o/p dictionary from scarping and turn it to a list ... 
-it have on argument x >> represents the number of returned list (tickets have least time)
+it have one argument x >> represents the number of returned list (tickets have least time)
 """
 def format_dic(data, x):
     if len(data) < x :
@@ -62,8 +67,17 @@ def format_dic(data, x):
             "Account," + key + "," + value[1] + ",Remaining Time," + value[0] + ",Type," + value[2] + ",Count," + value[
                 3]+ " Come back at " + add_times(current_time,value[0]))
         if len(formatted) == x:
-            return formatted
+           return formatted
 
+'''
+this is used to make sound 
+'''
+def make_alert():
+    chime.theme('pokemon')
+    print(f"\033[31m{'Attention! there is less than 20 minutes'}\033[0m")
+    for x in range(5):
+        chime.warning()
+        time.sleep(1.5)
 """
 This function takes the transfered list from format_dic function and split it with delimeter ',' and then print the tickets.
 """
@@ -81,9 +95,13 @@ def print_account_list(formatted_list):
 def check_time_color(the_time):
     x_hours, x_minutes = map(int, the_time.split(':'))
     if x_hours == 00 and x_minutes < 20:
+        make_alert()
         return f"\033[31m{the_time}\033[0m"  # red
+
     else:
         return f"\033[32m{the_time}\033[0m"  # return in green
+
+
 
 ############### continue with the reset of report ##########################
 """
@@ -206,13 +224,17 @@ parser.add_argument('-G', action='store_true', help='Check global')
 
 args = parser.parse_args()
 
+# arrange returns a dictionary orderd from smallest to biggest
 all_tickets = arrange(TTS_Scraping())
+#all_tickets = {'1431586': ['00:25', 'Unable to Obtain IP', 'ADSL', '3', 'Shewa Gharbia Cabinet 3'], '90985325': ['00:17', 'Browsing', 'ADSL', '1', 'Giza Cabinet 73'], '7554173': ['01:37', 'Browsing', 'ADSL', '1', 'Ismailia Cabinet 59']}
+
 
 print('\n' + "[!] collect time is : " + current_time + " [!]\n")
 
 print('number of all tickets are  ' + str(len(all_tickets)))
 
-
+# print(all_tickets)
+# print(print_account_list(format_dic(all_tickets,5)))
 if args.n:
     print_account_list(format_dic(all_tickets,args.n))
 if args.r:
